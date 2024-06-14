@@ -1,24 +1,20 @@
 const express = require('express');
 const app = express();
 
-// 导入环境变量
-require('dotenv').config();
-const port = process.env.PORT || 8000;
-const dbUrl = process.env.DATA_BASE_URL;
+const holies_router = require('./routes/holyofholies');
+const pisgah_router = require('./routes/MountPisgah');
 
-// 使用工具类MongoDB连接数据库
-const MongoDB = require('./utils/MongoDB');
-const dbName = 'MountPisgah';
+const config = require('./config/config');
 
-const mongo = new MongoDB(dbUrl, dbName);
-
-const S3Client = require('./utils/s3');
+app.use(express.json());
 
 // 静态文件
 app.use(express.static('public'));
 
+// app.use('/holyofholies', holies_router);
+// app.use(pisgah_router)
+app.use(holies_router);
+
 console.log("直到我在毗斯迦山，发现我家极目一看，脱下帐篷，安静等候，信心变见，盼望成就")
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+app.listen(config.port, () => console.log(`Server is running on port ${config.port}`));

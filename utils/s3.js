@@ -1,5 +1,6 @@
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import 'dotenv/config'
+const { PutObjectCommand, S3Client } = require('@aws-sdk/client-s3');
+// import 'dotenv/config'
+require('dotenv').config();
 
 class s3Client {
   constructor(config) {
@@ -29,3 +30,5 @@ class s3Client {
     }
   }
 }
+
+module.exports = s3Client;
