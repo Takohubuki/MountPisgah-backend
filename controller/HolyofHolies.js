@@ -35,8 +35,18 @@ const login = async (req, res) => {
 
 const list_courses = async (req, res) => {
     try {
-        const filter = req.body.filter || {};
-        const courses = await course_client.getCourses(filter);
+        let filter = req.body.filter || {};
+        const options = {
+            page: req.body.page || 1,
+            itemsPerPage: req.body.itemsPerPage || 10,
+            sortBy: req.body.sortBy || 'title',
+        }
+
+        if (filter.title === '' && filter.series === '') {
+            filter = {};
+        }
+
+        const courses = await course_client.getCourses(filter, {});
         res.status(200).send({ courses: courses, len: courses.length });
     }catch (e) {
         console.error(`Failed to list courses: ${e}`);
@@ -44,7 +54,31 @@ const list_courses = async (req, res) => {
     }
 };
 
+const publish_course = async (req, res) => {
+    try {
+        const course = req.body;
+        await course_client.publishCourse(course);
+        res.status(200).send('Course published');
+    } catch (e) {
+        console.error(`Failed to publish course: ${e}`);
+        res.status(500).send('Internal server error');
+    }
+}
+
+const delete_course = async (req, res) => {
+    try {
+        const delete_filter = req.body;
+        await course_client.deleteOneCourse(delete_filter);
+        res.status(200).send('Course deleted');
+    } catch (e) {
+        console.error(`Failed to delete course: ${e}`);
+        res.status(500).send('Internal server error');
+    }
+}
+
 module.exports = {
     login,
-    list_courses
+    list_courses,
+    publish_course,
+    delete_course,
 };

@@ -20,10 +20,9 @@ class Course {
         }
     }
 
-    async getCourses(filter = {}) {
+    async getCourses(filter = {}, options = {}) {
         try {
-            const { title, series } = filter;
-            const courses = await this.mongoClient.find('course', { title, series }, options = {});
+            const courses = await this.mongoClient.find('course', filter, options);
             console.log(`Retrieved all courses`);
             return courses;
         } catch (e) {
@@ -54,10 +53,10 @@ class Course {
         }
     }
 
-    async deleteOneCourse(title, series) {
+    async deleteOneCourse(delete_filter) {
         try {
-            const result = await this.mongoClient.deleteOne('course', { title: title, series: series });
-            console.log(`Deleted course: ${title}`);
+            const result = await this.mongoClient.deleteOne('course', delete_filter);
+            console.log(`Deleted course: ${delete_filter.title}`);
             return result;
         } catch (e) {
             console.error(`Failed to delete course: ${e}`);
