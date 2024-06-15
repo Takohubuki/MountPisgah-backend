@@ -1,8 +1,7 @@
 const express = require('express');
 const app = express();
 
-const holies_router = require('./routes/holyofholies');
-const pisgah_router = require('./routes/MountPisgah');
+const holies_router = require('./routes/HolyofHolies');
 
 const config = require('./config/config');
 
