@@ -9,11 +9,21 @@ class Course {
         this.publish_date = '';
     }
 
-    async getOneCourse(title) {
+    async getOneCourse(id) {
         try {
-            const course = await this.mongoClient.findOne('course', { title });
+            const course = await this.mongoClient.findOneById('course', id);
             console.log(`Retrieved course: ${course.title}`);
             return course;
+        } catch (e) {
+            console.error(`Failed to get course: ${e}`);
+            throw e;
+        }
+    }
+
+    async getOneCourseByTitleAndSeries(title, series) {
+        try {
+            const course = await this.mongoClient.findOne('course', { title, series });
+            console.log(`Retrieved course: ${course.title}`);
         } catch (e) {
             console.error(`Failed to get course: ${e}`);
             throw e;

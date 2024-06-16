@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 
 require('dotenv').config();
 
@@ -69,6 +69,18 @@ class MongoUtils {
     try {
       const collection = await this.getCollection(collection_name);
       const result = await collection.findOne(query, options);
+      console.log(`Found document: ${result}`);
+      return result;
+    } catch (e) {
+      console.error(`Failed to find document: ${e}`);
+      throw e;
+    }
+  }
+
+  async findOneById(collection_name, id, options = {}) {
+    try {
+      const collection = await this.getCollection(collection_name);
+      const result = await collection.findOne({ _id: new ObjectId(id) }, options);
       console.log(`Found document: ${result}`);
       return result;
     } catch (e) {

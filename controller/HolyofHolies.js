@@ -76,9 +76,22 @@ const delete_course = async (req, res) => {
     }
 }
 
+const get_one_course_by_id = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const course = await course_client.getOneCourse(id);
+        res.status(200).send(course);
+    } catch (e) {
+        console.error(`Failed to get course by id: ${e}`);
+        res.status(500).send('Internal server error');
+    }
+
+}
+
 module.exports = {
     login,
     list_courses,
     publish_course,
     delete_course,
+    get_one_course_by_id
 };
