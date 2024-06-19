@@ -1,4 +1,3 @@
-const MongoUtils = require('../utils/MongoDB');
 
 class User {
     constructor(mongoClient) {

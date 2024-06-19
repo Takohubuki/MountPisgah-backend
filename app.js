@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
 
-const holies_router = require('./routes/HolyofHolies');
+require('module-alias/register');
 
-const config = require('./config/config');
+const holies_router = require('@routes/HolyofHolies');
+
+const config = require('@config/config');
 
 app.use(express.json());
 

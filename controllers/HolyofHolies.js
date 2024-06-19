@@ -1,8 +1,8 @@
-const User = require('../model/user');
-const Course = require('../model/Course');
-const config = require('../config/config');
+const User = require('@models/User');
+const Course = require('@models/Course');
+const config = require('@config/config');
 
-const MongoUtils = require('../utils/MongoDB');
+const MongoUtils = require('@utils/MongoDB');
 const mongoClient = new MongoUtils(config.db.url, config.db.name);
 
 mongoClient.connect();
