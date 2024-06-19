@@ -3,6 +3,8 @@ const app = express();
 
 require('module-alias/register');
 
+const path = require('path');
+
 const holies_router = require('@routes/HolyofHolies');
 
 const config = require('@config/config');
@@ -10,7 +12,7 @@ const config = require('@config/config');
 app.use(express.json());
 
 // 静态文件
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use('/holyofholies', holies_router);
 // app.use(pisgah_router)
